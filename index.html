@@ -823,6 +823,7 @@
 </nav>
 
 <main>
+  <!-- HERO -->
   <section class="hero">
     <div class="hero-tag">Czech Maker · 15y/o · Open to collabs</div>
     <h1>
@@ -846,6 +847,7 @@
     </div>
   </section>
 
+  <!-- PROJECTS -->
   <section id="projects" class="reveal">
     <div class="section-header">
       <span class="section-label">// projects</span>
@@ -907,6 +909,7 @@
     </div>
   </section>
 
+  <!-- 3D PRINT -->
   <section id="print" class="reveal">
     <div class="section-header">
       <span class="section-label">// 3d print service</span>
@@ -956,15 +959,15 @@
       <div class="form-title">Request a print</div>
       <div class="form-sub">// fill in the details, I'll reply with price & ETA</div>
 
-      <form id="formContent" onsubmit="event.preventDefault(); submitForm();">
+      <div id="formContent">
         <div class="form-grid">
           <div class="form-group">
             <label class="form-label">Your name</label>
-            <input type="text" class="form-input" placeholder="Jan Novák" id="f-name" required />
+            <input type="text" class="form-input" placeholder="Jan Novák" id="f-name" />
           </div>
           <div class="form-group">
             <label class="form-label">Email</label>
-            <input type="email" class="form-input" placeholder="jan@example.cz" id="f-email" required />
+            <input type="email" class="form-input" placeholder="jan@example.cz" id="f-email" />
           </div>
           <div class="form-group">
             <label class="form-label">Material</label>
@@ -983,7 +986,7 @@
           </div>
           <div class="form-group full">
             <label class="form-label">Describe your model</label>
-            <textarea class="form-textarea" placeholder="What do you need printed? Approximate size, quantity, special requirements..." id="f-desc" required></textarea>
+            <textarea class="form-textarea" placeholder="What do you need printed? Approximate size, quantity, special requirements..." id="f-desc"></textarea>
           </div>
           <div class="form-group full">
             <label class="form-label">STL / 3MF file link (optional)</label>
@@ -992,11 +995,11 @@
           </div>
         </div>
         <br>
-        <button type="submit" class="form-submit">🖨️ Send print request</button>
+        <button class="form-submit" onclick="submitForm()">🖨️ Send print request</button>
         <p class="form-note">No payment upfront · I'll reply within 24h · Czech Republic only (for now)</p>
-      </form>
+      </div>
 
-      <div class="success-msg" id="successMsg" style="display: none;">
+      <div class="success-msg" id="successMsg">
         <div class="success-icon">✅</div>
         <strong>Request sent!</strong><br>
         <span style="color: var(--text2); font-size: 14px;">I'll get back to you within 24 hours with a price and ETA.</span>
@@ -1004,6 +1007,7 @@
     </div>
   </section>
 
+  <!-- SKILLS -->
   <section id="skills" class="reveal">
     <div class="section-header">
       <span class="section-label">// skills</span>
@@ -1050,28 +1054,88 @@
       <div class="skill-card">
         <div class="skill-icon">🐧</div>
         <div class="skill-name">Linux</div>
-        <div class="skill-level">Comfortable · CLI & tools</div>
+        <div class="skill-level">Comfortable · CLI & servers</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="section-header">
+      <span class="section-label">// about</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Who am I</h2>
+    <br>
+    <div class="about-card">
+      <div>
+        <p class="about-text">
+          I'm <strong>Petr</strong>, a 15-year-old maker from <strong>Czech Republic</strong>.
+          I spend most of my time building hardware projects, running my homelab,
+          and learning new things every day.<br><br>
+          Currently my main project is an <strong>ESP32-powered Sentry Turret</strong>
+          with Computer Vision — combining embedded systems, robotics and AI.<br><br>
+          When I'm not soldering or writing code, I'm probably optimizing my
+          <strong>Proxmox homelab</strong> or designing PCBs.
+        </p>
+      </div>
+      <div class="about-avatar">🐹</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <div class="section-header">
+      <span class="section-label">// contact</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Get in touch</h2>
+    <br>
+    <div class="contact-row">
+      <a href="https://github.com/Lotshaus" target="_blank" class="contact-card">
+        <span class="contact-icon">🐙</span>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">Lotshaus</div>
+        </div>
+      </a>
+      <div class="contact-card">
+        <span class="contact-icon">📍</span>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Czech Republic</div>
+        </div>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">🔨</span>
+        <div>
+          <div class="contact-label">Status</div>
+          <div class="contact-value">Building stuff</div>
+        </div>
       </div>
     </div>
   </section>
 </main>
 
+<footer>
+  <p>built by <span style="color: var(--accent)">lots_haus</span> · 2026 · made with ☕ and solder</p>
+</footer>
+
 <script>
-  // Mouse hover glow
-  const glow = document.getElementById('glow');
-  document.addEventListener('mousemove', (e) => {
-    glow.style.left = e.clientX + 'px';
-    glow.style.top = e.clientY + 'px';
+  // Theme toggle
+  const btn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  btn.addEventListener('click', () => {
+    const isDark = html.dataset.theme === 'dark';
+    html.dataset.theme = isDark ? 'light' : 'dark';
+    btn.textContent = isDark ? '🌙' : '☀️';
   });
 
-  // Dark/Light Theme toggle
-  const themeBtn = document.getElementById('themeBtn');
-  themeBtn.addEventListener('click', () => {
-    const html = document.documentElement;
-    const currentTheme = html.getAttribute('data-theme');
-    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
-    html.setAttribute('data-theme', newTheme);
-    themeBtn.textContent = newTheme === 'dark' ? '🌙' : '☀️';
+  // Cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
   });
 
   // 3D Print form
@@ -1092,12 +1156,10 @@
       `Name: ${name}\nEmail: ${email}\nMaterial: ${material}\nColor: ${color}\n\nDescription:\n${desc}\n\nFile link: ${file || 'none'}`
     );
     // Replace with your actual email!
-    window.location.href = `mailto:lotshaus@proton.me?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:Lotshaus@proton.me?subject=${subject}&body=${body}`;
     document.getElementById('formContent').style.display = 'none';
     document.getElementById('successMsg').style.display = 'block';
   }
-
-  // Scroll animations
   const reveals = document.querySelectorAll('.reveal');
   const observer = new IntersectionObserver(entries => {
     entries.forEach((entry, i) => {
@@ -1106,9 +1168,7 @@
       }
     });
   }, { threshold: 0.1 });
-
   reveals.forEach(el => observer.observe(el));
 </script>
-
 </body>
 </html>
