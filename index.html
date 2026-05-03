@@ -1,11 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="cs" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Petr · lots_haus</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
@@ -21,13 +21,13 @@
       --border: rgba(255,255,255,0.08);
       --text: #f0f0f5;
       --text2: #8888aa;
-      --accent: #7c6fcd;
-      --accent2: #c084fc;
-      --glow: rgba(124, 111, 205, 0.3);
+      --accent: #22c55e;
+      --accent2: #16a34a;
+      --glow: rgba(34, 197, 94, 0.2);
       --card: rgba(255,255,255,0.04);
       --card-hover: rgba(255,255,255,0.08);
-      --tag-bg: rgba(124,111,205,0.15);
-      --tag-border: rgba(124,111,205,0.3);
+      --tag-bg: rgba(34,197,94,0.15);
+      --tag-border: rgba(34,197,94,0.3);
     }
 
     [data-theme="light"] {
@@ -37,19 +37,19 @@
       --border: rgba(0,0,0,0.08);
       --text: #1a1a2e;
       --text2: #6666aa;
-      --accent: #6c5fc7;
-      --accent2: #9333ea;
-      --glow: rgba(108, 95, 199, 0.2);
+      --accent: #16a34a;
+      --accent2: #22c55e;
+      --glow: rgba(22, 163, 74, 0.2);
       --card: rgba(255,255,255,0.7);
       --card-hover: rgba(255,255,255,0.95);
-      --tag-bg: rgba(108,95,199,0.1);
-      --tag-border: rgba(108,95,199,0.25);
+      --tag-bg: rgba(22,163,74,0.1);
+      --tag-border: rgba(22,163,74,0.25);
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: 'Syne', sans-serif;
+      font-family: 'Inter', sans-serif;
       background: var(--bg);
       color: var(--text);
       transition: background var(--transition), color var(--transition);
@@ -64,7 +64,7 @@
       inset: 0;
       background:
         radial-gradient(ellipse 60% 40% at 20% 20%, var(--glow), transparent 60%),
-        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(192,132,252,0.12), transparent 60%);
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(34,197,94,0.06), transparent 60%);
       pointer-events: none;
       z-index: 0;
       transition: var(--transition);
@@ -96,7 +96,7 @@
       -webkit-backdrop-filter: blur(20px);
       border: 1px solid var(--border);
       border-radius: 50px;
-      padding: 8px 12px;
+      padding: 8px 16px;
       transition: background var(--transition);
       animation: slideDown 0.6s cubic-bezier(0.4,0,0.2,1) both;
     }
@@ -111,19 +111,19 @@
       font-size: 13px;
       color: var(--accent);
       padding: 6px 12px;
-      font-weight: 500;
+      font-weight: 600;
     }
 
     .nav-links {
       display: flex;
-      gap: 2px;
+      gap: 4px;
     }
 
     .nav-links a {
       text-decoration: none;
       color: var(--text2);
       font-size: 13px;
-      font-weight: 600;
+      font-weight: 500;
       padding: 6px 14px;
       border-radius: 30px;
       transition: all 0.2s;
@@ -165,7 +165,7 @@
 
     /* HERO */
     .hero {
-      min-height: 80vh;
+      min-height: 75vh;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -187,8 +187,8 @@
       border-radius: 50px;
       padding: 6px 16px;
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
-      color: var(--accent2);
+      font-size: 11px;
+      color: var(--accent);
       width: fit-content;
     }
 
@@ -196,7 +196,7 @@
       content: '';
       width: 6px;
       height: 6px;
-      background: var(--accent2);
+      background: var(--accent);
       border-radius: 50%;
       animation: pulse 2s infinite;
     }
@@ -207,10 +207,10 @@
     }
 
     .hero h1 {
-      font-size: clamp(52px, 10vw, 90px);
+      font-size: clamp(48px, 9vw, 84px);
       font-weight: 800;
       line-height: 0.95;
-      letter-spacing: -3px;
+      letter-spacing: -2px;
     }
 
     .hero h1 .name-accent {
@@ -221,10 +221,10 @@
     }
 
     .hero-sub {
-      font-size: 18px;
+      font-size: 17px;
       color: var(--text2);
       font-weight: 400;
-      max-width: 500px;
+      max-width: 520px;
       line-height: 1.6;
     }
 
@@ -237,7 +237,7 @@
       display: flex;
       gap: 12px;
       flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .btn-primary {
@@ -284,9 +284,9 @@
     /* STATS ROW */
     .stats {
       display: flex;
-      gap: 16px;
+      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 8px;
+      margin-top: 4px;
     }
 
     .stat-pill {
@@ -298,13 +298,13 @@
       border-radius: 50px;
       padding: 8px 16px;
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text2);
       backdrop-filter: blur(10px);
     }
 
     .stat-pill span:first-child {
-      font-size: 16px;
+      font-size: 14px;
     }
 
     /* SECTIONS */
@@ -317,12 +317,12 @@
       display: flex;
       align-items: center;
       gap: 12px;
-      margin-bottom: 32px;
+      margin-bottom: 24px;
     }
 
     .section-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 10px;
       color: var(--accent);
       text-transform: uppercase;
       letter-spacing: 2px;
@@ -335,10 +335,10 @@
     }
 
     h2 {
-      font-size: clamp(28px, 5vw, 42px);
+      font-size: clamp(28px, 4.5vw, 38px);
       font-weight: 800;
-      letter-spacing: -1px;
-      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+      margin-bottom: 4px;
     }
 
     /* PROJECTS GRID */
@@ -373,7 +373,7 @@
     .project-card:hover {
       border-color: var(--accent);
       transform: translateY(-4px);
-      box-shadow: 0 16px 48px var(--glow);
+      box-shadow: 0 16px 36px var(--glow);
     }
 
     .project-card:hover::before {
@@ -386,20 +386,20 @@
     }
 
     .project-icon {
-      font-size: 32px;
+      font-size: 28px;
       margin-bottom: 16px;
       display: block;
     }
 
     .project-title {
-      font-size: 18px;
+      font-size: 17px;
       font-weight: 700;
-      margin-bottom: 8px;
-      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+      letter-spacing: -0.3px;
     }
 
     .project-desc {
-      font-size: 14px;
+      font-size: 13px;
       color: var(--text2);
       line-height: 1.6;
       margin-bottom: 20px;
@@ -413,33 +413,32 @@
 
     .tag {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 10px;
       background: var(--tag-bg);
       border: 1px solid var(--tag-border);
       color: var(--accent2);
-      padding: 4px 10px;
+      padding: 3px 8px;
       border-radius: 50px;
     }
 
-    /* WIP BADGE */
     .wip-badge {
       display: inline-flex;
       align-items: center;
       gap: 6px;
       font-family: 'DM Mono', monospace;
-      font-size: 10px;
+      font-size: 9px;
       background: rgba(251, 191, 36, 0.1);
       border: 1px solid rgba(251, 191, 36, 0.3);
       color: #fbbf24;
-      padding: 3px 10px;
+      padding: 2px 8px;
       border-radius: 50px;
-      margin-bottom: 12px;
+      margin-bottom: 10px;
     }
 
     .wip-badge::before {
       content: '';
-      width: 5px;
-      height: 5px;
+      width: 4px;
+      height: 4px;
       background: #fbbf24;
       border-radius: 50%;
       animation: pulse 1.5s infinite;
@@ -448,7 +447,7 @@
     /* SKILLS */
     .skills-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
       gap: 12px;
     }
 
@@ -456,7 +455,7 @@
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 18px;
       transition: all 0.3s;
       backdrop-filter: blur(10px);
     }
@@ -467,16 +466,16 @@
       transform: translateY(-2px);
     }
 
-    .skill-icon { font-size: 24px; margin-bottom: 10px; }
-    .skill-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .skill-level { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); }
+    .skill-icon { font-size: 22px; margin-bottom: 10px; }
+    .skill-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .skill-level { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--text2); }
 
     /* ABOUT */
     .about-card {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 40px;
+      padding: 36px;
       backdrop-filter: blur(10px);
       display: grid;
       grid-template-columns: 1fr auto;
@@ -485,7 +484,7 @@
     }
 
     .about-text {
-      font-size: 16px;
+      font-size: 15px;
       color: var(--text2);
       line-height: 1.8;
     }
@@ -493,16 +492,16 @@
     .about-text strong { color: var(--text); font-weight: 700; }
 
     .about-avatar {
-      width: 100px;
-      height: 100px;
+      width: 90px;
+      height: 90px;
       border-radius: 50%;
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 48px;
+      font-size: 40px;
       flex-shrink: 0;
-      box-shadow: 0 8px 32px var(--glow);
+      box-shadow: 0 8px 24px var(--glow);
     }
 
     /* CONTACT */
@@ -514,11 +513,11 @@
 
     .contact-card {
       flex: 1;
-      min-width: 180px;
+      min-width: 170px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 24px;
+      padding: 22px;
       text-decoration: none;
       color: var(--text);
       transition: all 0.3s;
@@ -532,20 +531,20 @@
       border-color: var(--accent);
       background: var(--card-hover);
       transform: translateY(-3px);
-      box-shadow: 0 8px 32px var(--glow);
+      box-shadow: 0 6px 24px var(--glow);
     }
 
-    .contact-icon { font-size: 28px; }
-    .contact-label { font-size: 11px; color: var(--text2); font-family: 'DM Mono', monospace; }
-    .contact-value { font-size: 14px; font-weight: 700; }
+    .contact-icon { font-size: 24px; }
+    .contact-label { font-size: 10px; color: var(--text2); font-family: 'DM Mono', monospace; }
+    .contact-value { font-size: 13px; font-weight: 700; }
 
     /* FOOTER */
     footer {
       text-align: center;
-      padding: 60px 24px;
+      padding: 50px 24px;
       color: var(--text2);
       font-family: 'DM Mono', monospace;
-      font-size: 12px;
+      font-size: 11px;
       position: relative;
       z-index: 1;
     }
@@ -554,7 +553,7 @@
     .reveal {
       opacity: 0;
       transform: translateY(24px);
-      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+      transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1);
     }
 
     .reveal.visible {
@@ -577,10 +576,10 @@
 
     /* 3D PRINT SECTION */
     .print-hero {
-      background: linear-gradient(135deg, rgba(124,111,205,0.12), rgba(192,132,252,0.08));
+      background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(22,163,74,0.04));
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 48px 40px;
+      padding: 40px 32px;
       display: grid;
       grid-template-columns: 1fr auto;
       gap: 32px;
@@ -596,43 +595,43 @@
       right: -10px;
       top: -20px;
       font-size: 160px;
-      opacity: 0.06;
+      opacity: 0.05;
       pointer-events: none;
     }
 
     .print-hero-title {
-      font-size: clamp(24px, 4vw, 36px);
+      font-size: clamp(22px, 3.5vw, 32px);
       font-weight: 800;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
       margin-bottom: 10px;
     }
 
     .print-hero-sub {
-      font-size: 15px;
+      font-size: 14px;
       color: var(--text2);
-      line-height: 1.7;
-      max-width: 480px;
+      line-height: 1.6;
+      max-width: 440px;
     }
 
     .print-badge {
       background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
       border-radius: 16px;
-      padding: 20px 28px;
+      padding: 18px 26px;
       text-align: center;
       flex-shrink: 0;
-      box-shadow: 0 8px 32px var(--glow);
+      box-shadow: 0 8px 24px var(--glow);
     }
 
     .print-badge-price {
-      font-size: 28px;
+      font-size: 26px;
       font-weight: 800;
-      letter-spacing: -1px;
+      letter-spacing: -0.5px;
     }
 
     .print-badge-label {
       font-family: 'DM Mono', monospace;
-      font-size: 11px;
+      font-size: 10px;
       opacity: 0.8;
       margin-top: 4px;
     }
@@ -646,11 +645,11 @@
 
     .material-card {
       flex: 1;
-      min-width: 140px;
+      min-width: 130px;
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 20px;
+      padding: 18px;
       text-align: center;
       transition: all 0.3s;
       backdrop-filter: blur(10px);
@@ -658,67 +657,61 @@
 
     .material-card:hover {
       border-color: var(--accent);
-      transform: translateY(-3px);
+      transform: translateY(-2px);
     }
 
-    .material-icon { font-size: 28px; margin-bottom: 8px; }
-    .material-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
-    .material-desc { font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; }
+    .material-icon { font-size: 24px; margin-bottom: 6px; }
+    .material-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
+    .material-desc { font-size: 11px; color: var(--text2); font-family: 'DM Mono', monospace; }
 
     /* ORDER FORM */
     .order-form {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 40px;
+      padding: 36px;
       backdrop-filter: blur(10px);
     }
 
     .form-title {
-      font-size: 20px;
+      font-size: 19px;
       font-weight: 800;
-      margin-bottom: 6px;
-      letter-spacing: -0.5px;
+      margin-bottom: 4px;
+      letter-spacing: -0.3px;
     }
 
     .form-sub {
-      font-size: 13px;
+      font-size: 12px;
       color: var(--text2);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       font-family: 'DM Mono', monospace;
     }
 
     .form-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      gap: 16px;
-    }
-
-    .form-group {
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
+      gap: 14px;
     }
 
     .form-group.full { grid-column: 1 / -1; }
 
     .form-label {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
       color: var(--text2);
       font-family: 'DM Mono', monospace;
       text-transform: uppercase;
-      letter-spacing: 1px;
+      letter-spacing: 0.5px;
     }
 
     .form-input, .form-select, .form-textarea {
       background: var(--bg3);
       border: 1px solid var(--border);
       border-radius: 12px;
-      padding: 12px 16px;
+      padding: 12px 14px;
       color: var(--text);
-      font-family: 'Syne', sans-serif;
-      font-size: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 13px;
       transition: all 0.2s;
       outline: none;
       width: 100%;
@@ -733,27 +726,8 @@
 
     .form-textarea {
       resize: vertical;
-      min-height: 100px;
+      min-height: 90px;
     }
-
-    .form-file {
-      background: var(--bg3);
-      border: 2px dashed var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      cursor: pointer;
-      transition: all 0.2s;
-      color: var(--text2);
-      font-size: 13px;
-    }
-
-    .form-file:hover {
-      border-color: var(--accent);
-      color: var(--text);
-    }
-
-    .form-file input { display: none; }
 
     .form-submit {
       width: 100%;
@@ -761,24 +735,24 @@
       color: #fff;
       border: none;
       border-radius: 50px;
-      padding: 16px;
-      font-family: 'Syne', sans-serif;
-      font-size: 15px;
+      padding: 14px;
+      font-family: 'Inter', sans-serif;
+      font-size: 14px;
       font-weight: 700;
       cursor: pointer;
       transition: all 0.25s;
-      margin-top: 8px;
-      box-shadow: 0 4px 24px var(--glow);
+      margin-top: 6px;
+      box-shadow: 0 4px 16px var(--glow);
     }
 
     .form-submit:hover {
       transform: translateY(-2px);
-      box-shadow: 0 8px 32px var(--glow);
+      box-shadow: 0 6px 24px var(--glow);
     }
 
     .form-note {
       text-align: center;
-      font-size: 12px;
+      font-size: 11px;
       color: var(--text2);
       margin-top: 12px;
       font-family: 'DM Mono', monospace;
@@ -787,22 +761,23 @@
     .success-msg {
       display: none;
       text-align: center;
-      padding: 32px;
-      font-size: 16px;
-      color: var(--accent2);
+      padding: 28px;
+      font-size: 15px;
+      color: var(--accent);
     }
 
-    .success-msg .success-icon { font-size: 48px; margin-bottom: 12px; }
+    .success-msg .success-icon { font-size: 40px; margin-bottom: 10px; }
 
     @media (max-width: 600px) {
       .about-card { grid-template-columns: 1fr; }
       .about-avatar { width: 70px; height: 70px; font-size: 32px; }
-      nav { padding: 6px 8px; }
-      .nav-links a { padding: 6px 10px; font-size: 12px; }
+      nav { padding: 6px 12px; max-width: 85%; }
+      .nav-links a { padding: 4px 8px; font-size: 11px; }
       .form-grid { grid-template-columns: 1fr; }
       .print-hero { grid-template-columns: 1fr; }
       .print-badge { display: none; }
-      .order-form { padding: 24px; }
+      .order-form { padding: 22px; }
+      .hero { min-height: 60vh; }
     }
   </style>
 </head>
@@ -823,7 +798,6 @@
 </nav>
 
 <main>
-  <!-- HERO -->
   <section class="hero">
     <div class="hero-tag">Czech Maker · 15y/o · Open to collabs</div>
     <h1>
@@ -847,7 +821,6 @@
     </div>
   </section>
 
-  <!-- PROJECTS -->
   <section id="projects" class="reveal">
     <div class="section-header">
       <span class="section-label">// projects</span>
@@ -909,7 +882,6 @@
     </div>
   </section>
 
-  <!-- 3D PRINT -->
   <section id="print" class="reveal">
     <div class="section-header">
       <span class="section-label">// 3d print service</span>
@@ -1002,12 +974,11 @@
       <div class="success-msg" id="successMsg">
         <div class="success-icon">✅</div>
         <strong>Request sent!</strong><br>
-        <span style="color: var(--text2); font-size: 14px;">I'll get back to you within 24 hours with a price and ETA.</span>
+        <span style="color: var(--text2); font-size: 13px;">I'll get back to you within 24 hours with a price and ETA.</span>
       </div>
     </div>
   </section>
 
-  <!-- SKILLS -->
   <section id="skills" class="reveal">
     <div class="section-header">
       <span class="section-label">// skills</span>
@@ -1059,7 +1030,6 @@
     </div>
   </section>
 
-  <!-- ABOUT -->
   <section id="about" class="reveal">
     <div class="section-header">
       <span class="section-label">// about</span>
@@ -1083,7 +1053,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section id="contact" class="reveal">
     <div class="section-header">
       <span class="section-label">// contact</span>
@@ -1155,8 +1124,8 @@
     const body = encodeURIComponent(
       `Name: ${name}\nEmail: ${email}\nMaterial: ${material}\nColor: ${color}\n\nDescription:\n${desc}\n\nFile link: ${file || 'none'}`
     );
-    // Replace with your actual email!
-    window.location.href = `mailto:Lotshaus@proton.me?subject=${subject}&body=${body}`;
+    // Zde si změň e-mail na svůj:
+    window.location.href = `mailto:your@email.com?subject=${subject}&body=${body}`;
     document.getElementById('formContent').style.display = 'none';
     document.getElementById('successMsg').style.display = 'block';
   }
