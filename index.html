@@ -1,628 +1,1174 @@
 <!DOCTYPE html>
-<html lang="cs">
+<html lang="en" data-theme="dark">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>lots_haus | Petr - Maker Portfolio</title>
-    <style>
-        :root {
-            --bg-color: #0d1117;
-            --card-bg: #161b22;
-            --border-color: #30363d;
-            --text-main: #c9d1d9;
-            --text-muted: #8b949e;
-            --accent: #58a6ff;
-            --accent-success: #2ea44f;
-            --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Petr · lots_haus</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    :root {
+      --radius: 20px;
+      --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
-        body {
-            background-color: var(--bg-color);
-            color: var(--text-main);
-            font-family: var(--font);
-            line-height: 1.6;
-            padding-top: 70px;
-        }
+    [data-theme="dark"] {
+      --bg: #0d0d0f;
+      --bg2: #141418;
+      --bg3: #1c1c22;
+      --border: rgba(255,255,255,0.08);
+      --text: #f0f0f5;
+      --text2: #8888aa;
+      --accent: #7c6fcd;
+      --accent2: #c084fc;
+      --glow: rgba(124, 111, 205, 0.3);
+      --card: rgba(255,255,255,0.04);
+      --card-hover: rgba(255,255,255,0.08);
+      --tag-bg: rgba(124,111,205,0.15);
+      --tag-border: rgba(124,111,205,0.3);
+    }
 
-        /* Navigace */
-        nav {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background-color: rgba(22, 27, 34, 0.95);
-            border-bottom: 1px solid var(--border-color);
-            z-index: 1000;
-            backdrop-filter: blur(5px);
-        }
+    [data-theme="light"] {
+      --bg: #f5f4f9;
+      --bg2: #eeedf5;
+      --bg3: #e6e4f0;
+      --border: rgba(0,0,0,0.08);
+      --text: #1a1a2e;
+      --text2: #6666aa;
+      --accent: #6c5fc7;
+      --accent2: #9333ea;
+      --glow: rgba(108, 95, 199, 0.2);
+      --card: rgba(255,255,255,0.7);
+      --card-hover: rgba(255,255,255,0.95);
+      --tag-bg: rgba(108,95,199,0.1);
+      --tag-border: rgba(108,95,199,0.25);
+    }
 
-        .nav-container {
-            max-width: 1100px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-        }
+    html { scroll-behavior: smooth; }
 
-        .logo {
-            font-weight: bold;
-            font-size: 1.2rem;
-            color: #fff;
-            text-decoration: none;
-        }
+    body {
+      font-family: 'Syne', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      transition: background var(--transition), color var(--transition);
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
 
-        .nav-links {
-            display: flex;
-            list-style: none;
-            gap: 20px;
-        }
+    /* Background mesh */
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 40% at 20% 20%, var(--glow), transparent 60%),
+        radial-gradient(ellipse 50% 50% at 80% 80%, rgba(192,132,252,0.12), transparent 60%);
+      pointer-events: none;
+      z-index: 0;
+      transition: var(--transition);
+    }
 
-        .nav-links a {
-            color: var(--text-muted);
-            text-decoration: none;
-            transition: color 0.2s;
-            font-size: 0.95rem;
-        }
+    /* Noise texture */
+    body::after {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.4;
+    }
 
-        .nav-links a:hover {
-            color: var(--accent);
-        }
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 12px;
+      transition: background var(--transition);
+      animation: slideDown 0.6s cubic-bezier(0.4,0,0.2,1) both;
+    }
 
-        /* Sekce */
-        section {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 60px 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      to { opacity: 1; transform: translateX(-50%) translateY(0); }
+    }
 
-        .section-title {
-            font-size: 2rem;
-            margin-bottom: 30px;
-            color: #fff;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
+    .nav-logo {
+      font-family: 'DM Mono', monospace;
+      font-size: 13px;
+      color: var(--accent);
+      padding: 6px 12px;
+      font-weight: 500;
+    }
 
-        .comment-title {
-            color: var(--text-muted);
-            font-family: monospace;
-            font-size: 0.9rem;
-            margin-bottom: 5px;
-        }
+    .nav-links {
+      display: flex;
+      gap: 2px;
+    }
 
-        /* Hero Sekce */
-        .hero {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-            padding: 80px 20px;
-        }
+    .nav-links a {
+      text-decoration: none;
+      color: var(--text2);
+      font-size: 13px;
+      font-weight: 600;
+      padding: 6px 14px;
+      border-radius: 30px;
+      transition: all 0.2s;
+    }
 
-        .badge {
-            background: #21262d;
-            border: 1px solid var(--border-color);
-            padding: 5px 12px;
-            border-radius: 20px;
-            width: fit-content;
-            font-size: 0.85rem;
-            color: var(--accent);
-        }
+    .nav-links a:hover {
+      color: var(--text);
+      background: var(--card-hover);
+    }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            line-height: 1.1;
-            color: #fff;
-        }
+    .theme-btn {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      width: 36px;
+      height: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 16px;
+      transition: all 0.2s;
+      margin-left: 4px;
+    }
 
-        .hero p {
-            font-size: 1.2rem;
-            color: var(--text-muted);
-            max-width: 600px;
-        }
+    .theme-btn:hover {
+      background: var(--card-hover);
+      transform: rotate(20deg) scale(1.1);
+    }
 
-        .hero-buttons {
-            display: flex;
-            gap: 15px;
-            margin-top: 10px;
-        }
+    /* MAIN LAYOUT */
+    main {
+      position: relative;
+      z-index: 1;
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 120px 24px 80px;
+    }
 
-        .btn {
-            display: inline-block;
-            background-color: #21262d;
-            color: #fff;
-            padding: 10px 20px;
-            border-radius: 6px;
-            text-decoration: none;
-            border: 1px solid var(--border-color);
-            transition: 0.2s;
-            font-weight: 500;
-        }
+    /* HERO */
+    .hero {
+      min-height: 80vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      gap: 24px;
+      animation: fadeUp 0.8s 0.2s cubic-bezier(0.4,0,0.2,1) both;
+    }
 
-        .btn:hover {
-            background-color: #30363d;
-            border-color: #8b949e;
-        }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-        .btn-primary {
-            background-color: var(--accent-success);
-            border-color: rgba(240,246,2fc,0.1);
-        }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      border-radius: 50px;
+      padding: 6px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--accent2);
+      width: fit-content;
+    }
 
-        .btn-primary:hover {
-            background-color: #2c974b;
-        }
+    .hero-tag::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent2);
+      border-radius: 50%;
+      animation: pulse 2s infinite;
+    }
 
-        .tags-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 20px;
-        }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.5; transform: scale(0.8); }
+    }
 
-        .tag {
-            background: rgba(88, 166, 255, 0.1);
-            color: var(--accent);
-            padding: 4px 10px;
-            border-radius: 6px;
-            font-size: 0.85rem;
-            font-family: monospace;
-        }
+    .hero h1 {
+      font-size: clamp(52px, 10vw, 90px);
+      font-weight: 800;
+      line-height: 0.95;
+      letter-spacing: -3px;
+    }
 
-        /* Projekty Grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
+    .hero h1 .name-accent {
+      background: linear-gradient(135deg, var(--accent) 0%, var(--accent2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
 
-        .card {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 24px;
-            position: relative;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
+    .hero-sub {
+      font-size: 18px;
+      color: var(--text2);
+      font-weight: 400;
+      max-width: 500px;
+      line-height: 1.6;
+    }
 
-        .card-wip {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            background: #bc6c25;
-            color: #fff;
-            font-size: 0.75rem;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-weight: bold;
-        }
+    .hero-sub strong {
+      color: var(--text);
+      font-weight: 600;
+    }
 
-        .card h3 {
-            color: #fff;
-            margin: 10px 0;
-            font-size: 1.3rem;
-        }
+    .hero-ctas {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
 
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin-bottom: 15px;
-            flex-grow: 1;
-        }
+    .btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 14px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      transition: all 0.25s;
+      box-shadow: 0 4px 24px var(--glow);
+    }
 
-        /* 3D Tisk Sekce */
-        .print-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 25px;
-            border-radius: 8px;
-            margin-bottom: 25px;
-            flex-wrap: wrap;
-            gap: 20px;
-        }
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--glow);
+    }
 
-        .price-tag {
-            text-align: right;
-        }
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      color: var(--text);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 14px 28px;
+      border-radius: 50px;
+      transition: all 0.25s;
+      backdrop-filter: blur(10px);
+    }
 
-        .price-tag .amount {
-            font-size: 2rem;
-            color: #fff;
-            font-weight: bold;
-            display: block;
-        }
+    .btn-secondary:hover {
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
 
-        /* Formulář */
-        .form-container {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            padding: 30px;
-            border-radius: 8px;
-            margin-top: 30px;
-        }
+    /* STATS ROW */
+    .stats {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 8px;
+    }
 
-        .form-group {
-            margin-bottom: 20px;
-        }
+    .stat-pill {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 16px;
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      color: var(--text2);
+      backdrop-filter: blur(10px);
+    }
 
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            color: #fff;
-            font-size: 0.95rem;
-        }
+    .stat-pill span:first-child {
+      font-size: 16px;
+    }
 
-        .form-control {
-            width: 100%;
-            background: var(--bg-color);
-            border: 1px solid var(--border-color);
-            border-radius: 6px;
-            padding: 10px;
-            color: var(--text-main);
-            font-family: var(--font);
-            font-size: 1rem;
-        }
+    /* SECTIONS */
+    section {
+      margin-top: 80px;
+      animation: fadeUp 0.8s cubic-bezier(0.4,0,0.2,1) both;
+    }
 
-        .form-control:focus {
-            outline: none;
-            border-color: var(--accent);
-        }
+    .section-header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 32px;
+    }
 
-        .form-note {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-top: 5px;
-        }
+    .section-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
 
-        /* Kontakt a O mně */
-        .about-content {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 40px;
-        }
+    .section-line {
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
 
-        .about-text {
-            font-size: 1.1rem;
-            color: var(--text-muted);
-        }
+    h2 {
+      font-size: clamp(28px, 5vw, 42px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 8px;
+    }
 
-        .about-avatar {
-            font-size: 5rem;
-            background: var(--card-bg);
-            padding: 20px;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-        }
+    /* PROJECTS GRID */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 16px;
+    }
 
-        .contact-list {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
+    .project-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+    }
 
-        .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            background: var(--card-bg);
-            padding: 15px;
-            border-radius: 8px;
-            border: 1px solid var(--border-color);
-        }
+    .project-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      opacity: 0;
+      transition: opacity 0.3s;
+      border-radius: var(--radius);
+    }
 
-        .contact-icon {
-            font-size: 1.5rem;
-        }
+    .project-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-4px);
+      box-shadow: 0 16px 48px var(--glow);
+    }
 
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: var(--text-muted);
-            font-size: 0.9rem;
-            border-top: 1px solid var(--border-color);
-            margin-top: 40px;
-        }
+    .project-card:hover::before {
+      opacity: 0.05;
+    }
 
-        /* Responzivita */
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            .about-content { flex-direction: column; text-align: center; }
-            .print-info { flex-direction: column; text-align: center; }
-            .price-tag { text-align: center; }
-            .nav-links { display: none; } /* Pro zjednodušení na mobilech */
-        }
-    </style>
+    .project-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .project-icon {
+      font-size: 32px;
+      margin-bottom: 16px;
+      display: block;
+    }
+
+    .project-title {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+
+    .project-desc {
+      font-size: 14px;
+      color: var(--text2);
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+    }
+
+    .tag {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      background: var(--tag-bg);
+      border: 1px solid var(--tag-border);
+      color: var(--accent2);
+      padding: 4px 10px;
+      border-radius: 50px;
+    }
+
+    /* WIP BADGE */
+    .wip-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'DM Mono', monospace;
+      font-size: 10px;
+      background: rgba(251, 191, 36, 0.1);
+      border: 1px solid rgba(251, 191, 36, 0.3);
+      color: #fbbf24;
+      padding: 3px 10px;
+      border-radius: 50px;
+      margin-bottom: 12px;
+    }
+
+    .wip-badge::before {
+      content: '';
+      width: 5px;
+      height: 5px;
+      background: #fbbf24;
+      border-radius: 50%;
+      animation: pulse 1.5s infinite;
+    }
+
+    /* SKILLS */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+    }
+
+    .skill-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .skill-card:hover {
+      border-color: var(--accent);
+      background: var(--card-hover);
+      transform: translateY(-2px);
+    }
+
+    .skill-icon { font-size: 24px; margin-bottom: 10px; }
+    .skill-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .skill-level { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text2); }
+
+    /* ABOUT */
+    .about-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      backdrop-filter: blur(10px);
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+    }
+
+    .about-text {
+      font-size: 16px;
+      color: var(--text2);
+      line-height: 1.8;
+    }
+
+    .about-text strong { color: var(--text); font-weight: 700; }
+
+    .about-avatar {
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 48px;
+      flex-shrink: 0;
+      box-shadow: 0 8px 32px var(--glow);
+    }
+
+    /* CONTACT */
+    .contact-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .contact-card {
+      flex: 1;
+      min-width: 180px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      text-decoration: none;
+      color: var(--text);
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .contact-card:hover {
+      border-color: var(--accent);
+      background: var(--card-hover);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 32px var(--glow);
+    }
+
+    .contact-icon { font-size: 28px; }
+    .contact-label { font-size: 11px; color: var(--text2); font-family: 'DM Mono', monospace; }
+    .contact-value { font-size: 14px; font-weight: 700; }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 60px 24px;
+      color: var(--text2);
+      font-family: 'DM Mono', monospace;
+      font-size: 12px;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* SCROLL ANIMATIONS */
+    .reveal {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.7s cubic-bezier(0.4,0,0.2,1), transform 0.7s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* CURSOR GLOW */
+    .cursor-glow {
+      position: fixed;
+      width: 300px;
+      height: 300px;
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--glow), transparent 70%);
+      pointer-events: none;
+      z-index: 0;
+      transform: translate(-50%, -50%);
+      transition: left 0.15s, top 0.15s;
+    }
+
+    /* 3D PRINT SECTION */
+    .print-hero {
+      background: linear-gradient(135deg, rgba(124,111,205,0.12), rgba(192,132,252,0.08));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      gap: 32px;
+      align-items: center;
+      margin-bottom: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .print-hero::before {
+      content: '🖨️';
+      position: absolute;
+      right: -10px;
+      top: -20px;
+      font-size: 160px;
+      opacity: 0.06;
+      pointer-events: none;
+    }
+
+    .print-hero-title {
+      font-size: clamp(24px, 4vw, 36px);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 10px;
+    }
+
+    .print-hero-sub {
+      font-size: 15px;
+      color: var(--text2);
+      line-height: 1.7;
+      max-width: 480px;
+    }
+
+    .print-badge {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border-radius: 16px;
+      padding: 20px 28px;
+      text-align: center;
+      flex-shrink: 0;
+      box-shadow: 0 8px 32px var(--glow);
+    }
+
+    .print-badge-price {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -1px;
+    }
+
+    .print-badge-label {
+      font-family: 'DM Mono', monospace;
+      font-size: 11px;
+      opacity: 0.8;
+      margin-top: 4px;
+    }
+
+    .materials-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .material-card {
+      flex: 1;
+      min-width: 140px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      text-align: center;
+      transition: all 0.3s;
+      backdrop-filter: blur(10px);
+    }
+
+    .material-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-3px);
+    }
+
+    .material-icon { font-size: 28px; margin-bottom: 8px; }
+    .material-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+    .material-desc { font-size: 12px; color: var(--text2); font-family: 'DM Mono', monospace; }
+
+    /* ORDER FORM */
+    .order-form {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 40px;
+      backdrop-filter: blur(10px);
+    }
+
+    .form-title {
+      font-size: 20px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      letter-spacing: -0.5px;
+    }
+
+    .form-sub {
+      font-size: 13px;
+      color: var(--text2);
+      margin-bottom: 28px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-label {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--text2);
+      font-family: 'DM Mono', monospace;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      background: var(--bg3);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 12px 16px;
+      color: var(--text);
+      font-family: 'Syne', sans-serif;
+      font-size: 14px;
+      transition: all 0.2s;
+      outline: none;
+      width: 100%;
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--glow);
+    }
+
+    .form-select option { background: var(--bg); }
+
+    .form-textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    .form-file {
+      background: var(--bg3);
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+      color: var(--text2);
+      font-size: 13px;
+    }
+
+    .form-file:hover {
+      border-color: var(--accent);
+      color: var(--text);
+    }
+
+    .form-file input { display: none; }
+
+    .form-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 16px;
+      font-family: 'Syne', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.25s;
+      margin-top: 8px;
+      box-shadow: 0 4px 24px var(--glow);
+    }
+
+    .form-submit:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px var(--glow);
+    }
+
+    .form-note {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text2);
+      margin-top: 12px;
+      font-family: 'DM Mono', monospace;
+    }
+
+    .success-msg {
+      display: none;
+      text-align: center;
+      padding: 32px;
+      font-size: 16px;
+      color: var(--accent2);
+    }
+
+    .success-msg .success-icon { font-size: 48px; margin-bottom: 12px; }
+
+    @media (max-width: 600px) {
+      .about-card { grid-template-columns: 1fr; }
+      .about-avatar { width: 70px; height: 70px; font-size: 32px; }
+      nav { padding: 6px 8px; }
+      .nav-links a { padding: 6px 10px; font-size: 12px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .print-hero { grid-template-columns: 1fr; }
+      .print-badge { display: none; }
+      .order-form { padding: 24px; }
+    }
+  </style>
 </head>
 <body>
 
-    <nav>
-        <div class="nav-container">
-            <a href="#" class="logo">lots_haus</a>
-            <ul class="nav-links">
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#3dprint">3D Print</a></li>
-                <li><a href="#skills">Skills</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
+<div class="cursor-glow" id="glow"></div>
+
+<nav>
+  <span class="nav-logo">lots_haus</span>
+  <div class="nav-links">
+    <a href="#projects">Projects</a>
+    <a href="#print">3D Print</a>
+    <a href="#skills">Skills</a>
+    <a href="#about">About</a>
+    <a href="#contact">Contact</a>
+  </div>
+  <button class="theme-btn" id="themeBtn" title="Toggle theme">🌙</button>
+</nav>
+
+<main>
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Czech Maker · 15y/o · Open to collabs</div>
+    <h1>
+      Hey, I'm<br>
+      <span class="name-accent">Petr.</span>
+    </h1>
+    <p class="hero-sub">
+      I build things with <strong>ESP32</strong>, <strong>Raspberry Pi</strong> & <strong>C++</strong>.
+      Currently working on an <strong>AI-powered Sentry Turret</strong> with Computer Vision.
+    </p>
+    <div class="hero-ctas">
+      <a href="#projects" class="btn-primary">⚡ See my work</a>
+      <a href="https://github.com/Lotshaus" class="btn-secondary" target="_blank">🐙 GitHub</a>
+    </div>
+    <div class="stats">
+      <div class="stat-pill"><span>🖨️</span> 3D Printing</div>
+      <div class="stat-pill"><span>🔧</span> Hardware Hacker</div>
+      <div class="stat-pill"><span>💻</span> C++ · Python</div>
+      <div class="stat-pill"><span>🏠</span> Homelab Runner</div>
+      <div class="stat-pill"><span>🎛️</span> PCB Designer</div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects" class="reveal">
+    <div class="section-header">
+      <span class="section-label">// projects</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>What I've built</h2>
+    <br>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <span class="project-icon">🎯</span>
+        <div class="wip-badge">WIP</div>
+        <div class="project-title">ESP32 Sentry Turret</div>
+        <p class="project-desc">Autonomous turret with Computer Vision using OpenCV on Raspberry Pi. Tracks and targets objects in real-time using servo motors controlled by ESP32.</p>
+        <div class="project-tags">
+          <span class="tag">ESP32</span>
+          <span class="tag">RPi</span>
+          <span class="tag">OpenCV</span>
+          <span class="tag">C++</span>
+          <span class="tag">Python</span>
         </div>
-    </nav>
+      </div>
 
-    <section id="hero" class="hero">
-        <div class="badge">Czech Maker · 15y/o · Open to collabs</div>
-        <h1>Hey, I'm <span style="color: var(--accent);">Petr.</span></h1>
-        <p>I build things with ESP32, Raspberry Pi & C++. Currently working on an AI-powered Sentry Turret with Computer Vision.</p>
-        
-        <div class="hero-buttons">
-            <a href="#projects" class="btn btn-primary">⚡ See my work</a>
-            <a href="https://github.com/Lotshaus" target="_blank" class="btn">🐙 GitHub</a>
+      <div class="project-card">
+        <span class="project-icon">🏠</span>
+        <div class="project-title">Homelab Setup</div>
+        <p class="project-desc">Self-hosted infrastructure running on HP t640 thin client with Proxmox VE. Multiple VMs and containers for various services.</p>
+        <div class="project-tags">
+          <span class="tag">Proxmox</span>
+          <span class="tag">HP t640</span>
+          <span class="tag">Linux</span>
+          <span class="tag">Docker</span>
         </div>
+      </div>
 
-        <div class="tags-container">
-            <span class="tag">🖨️ 3D Printing</span>
-            <span class="tag">🔧 Hardware Hacker</span>
-            <span class="tag">💻 C++ · Python</span>
-            <span class="tag">🏠 Homelab Runner</span>
-            <span class="tag">🎛️ PCB Designer</span>
+      <div class="project-card">
+        <span class="project-icon">🤖</span>
+        <div class="project-title">Discord Bots</div>
+        <p class="project-desc">Custom Discord bots with various features and integrations. Built with Python and deployed on self-hosted infrastructure.</p>
+        <div class="project-tags">
+          <span class="tag">Python</span>
+          <span class="tag">Discord.py</span>
+          <span class="tag">Self-hosted</span>
         </div>
-    </section>
+      </div>
 
-    <section id="projects">
-        <div class="comment-title">// projects</div>
-        <h2 class="section-title">What I've built</h2>
-        
-        <div class="grid">
-            <div class="card">
-                <span class="card-wip">WIP</span>
-                <div>
-                    <div style="font-size: 1.5rem;">🎯</div>
-                    <h3>ESP32 Sentry Turret</h3>
-                    <p>Autonomous turret with Computer Vision using OpenCV on Raspberry Pi. Tracks and targets objects in real-time using servo motors controlled by ESP32.</p>
-                </div>
-                <div class="tags-container">
-                    <span class="tag">ESP32</span> <span class="tag">RPi</span> <span class="tag">OpenCV</span> <span class="tag">C++</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div>
-                    <div style="font-size: 1.5rem;">🏠</div>
-                    <h3>Homelab Setup</h3>
-                    <p>Self-hosted infrastructure running on HP t640 thin client with Proxmox VE. Multiple VMs and containers for various services.</p>
-                </div>
-                <div class="tags-container">
-                    <span class="tag">Proxmox</span> <span class="tag">HP t640</span> <span class="tag">Linux</span> <span class="tag">Docker</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <div>
-                    <div style="font-size: 1.5rem;">🤖</div>
-                    <h3>Discord Bots</h3>
-                    <p>Custom Discord bots with various features and integrations. Built with Python and deployed on self-hosted infrastructure.</p>
-                </div>
-                <div class="tags-container">
-                    <span class="tag">Python</span> <span class="tag">Discord.py</span>
-                </div>
-            </div>
-
-            <div class="card">
-                <span class="card-wip">WIP</span>
-                <div>
-                    <div style="font-size: 1.5rem;">🔌</div>
-                    <h3>Custom PCB Designs</h3>
-                    <p>Designing custom PCBs for embedded projects. Learning PCB layout, schematic design and manufacturing processes.</p>
-                </div>
-                <div class="tags-container">
-                    <span class="tag">PCB Design</span> <span class="tag">KiCad</span> <span class="tag">Embedded</span>
-                </div>
-            </div>
+      <div class="project-card">
+        <span class="project-icon">🔌</span>
+        <div class="wip-badge">WIP</div>
+        <div class="project-title">Custom PCB Designs</div>
+        <p class="project-desc">Designing custom PCBs for embedded projects. Learning PCB layout, schematic design and manufacturing processes.</p>
+        <div class="project-tags">
+          <span class="tag">PCB Design</span>
+          <span class="tag">KiCad</span>
+          <span class="tag">Embedded</span>
         </div>
-    </section>
+      </div>
 
-    <section id="3dprint">
-        <div class="comment-title">// 3d print service</div>
-        <h2 class="section-title">3D Print on demand</h2>
+    </div>
+  </section>
 
-        <div class="print-info">
-            <div>
-                <h3 style="color: #fff; margin-bottom: 10px;">Bambu Lab P1S at your service 🖨️</h3>
-                <p style="color: var(--text-muted); max-width: 600px;">Got a model you need printed? I'll print it on my Bambu Lab P1S — fast, precise, and reliable. Send me your STL/3MF and I'll get back to you with a quote.</p>
-            </div>
-            <div class="price-tag">
-                <span class="amount">od 50 Kč</span>
-                <span style="color: var(--text-muted); font-size: 0.9rem;">per print</span>
-            </div>
+  <!-- 3D PRINT -->
+  <section id="print" class="reveal">
+    <div class="section-header">
+      <span class="section-label">// 3d print service</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>3D Print on demand</h2>
+    <br>
+
+    <div class="print-hero">
+      <div>
+        <div class="print-hero-title">Bambu Lab P1S<br>at your service 🖨️</div>
+        <p class="print-hero-sub">
+          Got a model you need printed? I'll print it on my <strong>Bambu Lab P1S</strong> — fast, precise, and reliable.
+          Send me your STL and I'll get back to you with a quote.
+        </p>
+      </div>
+      <div class="print-badge">
+        <div class="print-badge-price">od 50 Kč</div>
+        <div class="print-badge-label">per print</div>
+      </div>
+    </div>
+
+    <div class="materials-row">
+      <div class="material-card">
+        <div class="material-icon">🟡</div>
+        <div class="material-name">PLA</div>
+        <div class="material-desc">General use · Easy · Strong</div>
+      </div>
+      <div class="material-card">
+        <div class="material-icon">🟢</div>
+        <div class="material-name">PETG</div>
+        <div class="material-desc">Flexible · Heat resistant</div>
+      </div>
+      <div class="material-card">
+        <div class="material-icon">⚫</div>
+        <div class="material-name">ABS / ASA</div>
+        <div class="material-desc">Tough · UV resistant</div>
+      </div>
+      <div class="material-card">
+        <div class="material-icon">✨</div>
+        <div class="material-name">Silk / Special</div>
+        <div class="material-desc">Decorative · Custom colors</div>
+      </div>
+    </div>
+
+    <div class="order-form">
+      <div class="form-title">Request a print</div>
+      <div class="form-sub">// fill in the details, I'll reply with price & ETA</div>
+
+      <div id="formContent">
+        <div class="form-grid">
+          <div class="form-group">
+            <label class="form-label">Your name</label>
+            <input type="text" class="form-input" placeholder="Jan Novák" id="f-name" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Email</label>
+            <input type="email" class="form-input" placeholder="jan@example.cz" id="f-email" />
+          </div>
+          <div class="form-group">
+            <label class="form-label">Material</label>
+            <select class="form-select" id="f-material">
+              <option value="">— choose material —</option>
+              <option>PLA</option>
+              <option>PETG</option>
+              <option>ABS / ASA</option>
+              <option>Silk / Special</option>
+              <option>Not sure — advise me</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label">Color preference</label>
+            <input type="text" class="form-input" placeholder="Black, white, any..." id="f-color" />
+          </div>
+          <div class="form-group full">
+            <label class="form-label">Describe your model</label>
+            <textarea class="form-textarea" placeholder="What do you need printed? Approximate size, quantity, special requirements..." id="f-desc"></textarea>
+          </div>
+          <div class="form-group full">
+            <label class="form-label">STL / 3MF file link (optional)</label>
+            <input type="text" class="form-input" placeholder="Google Drive / WeTransfer / Printables link..." id="f-file" />
+            <small style="color: var(--text2); font-size: 11px; font-family: 'DM Mono', monospace;">If you don't have a link, just describe what you need and we'll figure it out.</small>
+          </div>
         </div>
+        <br>
+        <button class="form-submit" onclick="submitForm()">🖨️ Send print request</button>
+        <p class="form-note">No payment upfront · I'll reply within 24h · Czech Republic only (for now)</p>
+      </div>
 
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 30px;">
-            <div class="card" style="padding: 15px; text-align: center;">
-                <div style="color: #ffb703;">🟡 PLA</div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Easy · Strong</span>
-            </div>
-            <div class="card" style="padding: 15px; text-align: center;">
-                <div style="color: #2ea44f;">🟢 PETG</div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Flexible · Heat resistant</span>
-            </div>
-            <div class="card" style="padding: 15px; text-align: center;">
-                <div style="color: #8b949e;">⚫ ABS / ASA</div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Tough · UV resistant</span>
-            </div>
-            <div class="card" style="padding: 15px; text-align: center;">
-                <div style="color: #a2d2ff;">✨ Silk / Special</div>
-                <span style="font-size: 0.85rem; color: var(--text-muted);">Decorative · Custom colors</span>
-            </div>
+      <div class="success-msg" id="successMsg">
+        <div class="success-icon">✅</div>
+        <strong>Request sent!</strong><br>
+        <span style="color: var(--text2); font-size: 14px;">I'll get back to you within 24 hours with a price and ETA.</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="reveal">
+    <div class="section-header">
+      <span class="section-label">// skills</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Tech stack</h2>
+    <br>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">C++</div>
+        <div class="skill-level">Intermediate · Daily use</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐍</div>
+        <div class="skill-name">Python</div>
+        <div class="skill-level">Intermediate · Scripts & bots</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔲</div>
+        <div class="skill-name">ESP32</div>
+        <div class="skill-level">Comfortable · Hardware projects</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🍓</div>
+        <div class="skill-name">Raspberry Pi</div>
+        <div class="skill-level">Comfortable · CV & Linux</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🖥️</div>
+        <div class="skill-name">Proxmox VE</div>
+        <div class="skill-level">Intermediate · Homelab</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🔌</div>
+        <div class="skill-name">PCB Design</div>
+        <div class="skill-level">Learning · KiCad</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">👁️</div>
+        <div class="skill-name">OpenCV</div>
+        <div class="skill-level">Learning · Computer Vision</div>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🐧</div>
+        <div class="skill-name">Linux</div>
+        <div class="skill-level">Comfortable · CLI & servers</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ABOUT -->
+  <section id="about" class="reveal">
+    <div class="section-header">
+      <span class="section-label">// about</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Who am I</h2>
+    <br>
+    <div class="about-card">
+      <div>
+        <p class="about-text">
+          I'm <strong>Petr</strong>, a 15-year-old maker from <strong>Czech Republic</strong>.
+          I spend most of my time building hardware projects, running my homelab,
+          and learning new things every day.<br><br>
+          Currently my main project is an <strong>ESP32-powered Sentry Turret</strong>
+          with Computer Vision — combining embedded systems, robotics and AI.<br><br>
+          When I'm not soldering or writing code, I'm probably optimizing my
+          <strong>Proxmox homelab</strong> or designing PCBs.
+        </p>
+      </div>
+      <div class="about-avatar">🐹</div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="reveal">
+    <div class="section-header">
+      <span class="section-label">// contact</span>
+      <div class="section-line"></div>
+    </div>
+    <h2>Get in touch</h2>
+    <br>
+    <div class="contact-row">
+      <a href="https://github.com/Lotshaus" target="_blank" class="contact-card">
+        <span class="contact-icon">🐙</span>
+        <div>
+          <div class="contact-label">GitHub</div>
+          <div class="contact-value">Lotshaus</div>
         </div>
-
-        <div class="form-container">
-            <h3 style="color: #fff; margin-bottom: 5px;">Request a print</h3>
-            <p class="comment-title" style="margin-bottom: 20px;">// fill in the details, I'll reply with price & ETA</p>
-            
-            <form action="https://formspree.io/f/xykvwdkj" method="POST" enctype="multipart/form-data">
-                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div class="form-group">
-                        <label for="name">Your name</label>
-                        <input type="text" id="name" name="name" class="form-control" required placeholder="Jan Novák">
-                    </div>
-                    <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" name="email" class="form-control" required placeholder="name@example.com">
-                    </div>
-                </div>
-
-                <div class="grid" style="grid-template-columns: 1fr 1fr; gap: 20px;">
-                    <div class="form-group">
-                        <label for="material">Material</label>
-                        <select id="material" name="material" class="form-control">
-                            <option value="PLA">PLA (General use)</option>
-                            <option value="PETG">PETG (Functional)</option>
-                            <option value="ABS_ASA">ABS / ASA (Tough)</option>
-                            <option value="Silk_Special">Silk / Special</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label for="color">Color preference</label>
-                        <input type="text" id="color" name="color" class="form-control" placeholder="Black, Orange, etc.">
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label for="message">Describe your model</label>
-                    <textarea id="message" name="message" rows="4" class="form-control" required placeholder="What is it? Infills, wall counts or specific requirements..."></textarea>
-                </div>
-
-                <div class="form-group">
-                    <label for="file">Upload your Model (STL, 3MF, ZIP) <span style="color: var(--accent);">*</span></label>
-                    <input type="file" id="file" name="upload_file" class="form-control" accept=".stl,.3mf,.zip,.obj" required style="padding: 7px;">
-                    <p class="form-note">Nahraj přímo svůj model, abych mohl spočítat spotřebu materiálu a čas tisku.</p>
-                </div>
-
-                <button type="submit" class="btn btn-primary" style="width: 100%; padding: 12px; font-size: 1rem;">Odeslat poptávku tisku</button>
-                <p class="form-note" style="text-align: center; margin-top: 15px;">No payment upfront · I'll reply within 24h · Czech Republic only (for now)</p>
-            </form>
+      </a>
+      <div class="contact-card">
+        <span class="contact-icon">📍</span>
+        <div>
+          <div class="contact-label">Location</div>
+          <div class="contact-value">Czech Republic</div>
         </div>
-    </section>
-
-    <section id="skills">
-        <div class="comment-title">// skills</div>
-        <h2 class="section-title">Tech stack</h2>
-        <div class="grid" style="grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));">
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">⚡</span>
-                <div>
-                    <h4 style="color: #fff;">C++</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Intermediate · Daily use</span>
-                </div>
-            </div>
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">🐍</span>
-                <div>
-                    <h4 style="color: #fff;">Python</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Intermediate · Bots</span>
-                </div>
-            </div>
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">🔲</span>
-                <div>
-                    <h4 style="color: #fff;">ESP32</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Comfortable</span>
-                </div>
-            </div>
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">🍓</span>
-                <div>
-                    <h4 style="color: #fff;">Raspberry Pi</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">CV & Linux</span>
-                </div>
-            </div>
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">🖥️</span>
-                <div>
-                    <h4 style="color: #fff;">Proxmox VE</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Homelab</span>
-                </div>
-            </div>
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">🔌</span>
-                <div>
-                    <h4 style="color: #fff;">PCB Design</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Learning · KiCad</span>
-                </div>
-            </div>
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">👁️</span>
-                <div>
-                    <h4 style="color: #fff;">OpenCV</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">Learning</span>
-                </div>
-            </div>
-            <div class="card" style="padding: 15px; flex-direction: row; align-items: center; gap: 15px;">
-                <span style="font-size: 1.5rem;">🐧</span>
-                <div>
-                    <h4 style="color: #fff;">Linux</h4>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">CLI & servers</span>
-                </div>
-            </div>
+      </div>
+      <div class="contact-card">
+        <span class="contact-icon">🔨</span>
+        <div>
+          <div class="contact-label">Status</div>
+          <div class="contact-value">Building stuff</div>
         </div>
-    </section>
+      </div>
+    </div>
+  </section>
+</main>
 
-    <section id="about">
-        <div class="comment-title">// about</div>
-        <h2 class="section-title">Who am I</h2>
-        <div class="about-content">
-            <div class="about-text">
-                <p style="margin-bottom: 15px;">I'm Petr, a 15-year-old maker from Czech Republic. I spend most of my time building hardware projects, running my homelab, and learning new things every day.</p>
-                <p style="margin-bottom: 15px;">Currently my main project is an ESP32-powered Sentry Turret with Computer Vision — combining embedded systems, robotics and AI.</p>
-                <p>When I'm not soldering or writing code, I'm probably optimizing my Proxmox homelab or designing PCBs.</p>
-            </div>
-            <div class="about-avatar">🐹</div>
-        </div>
-    </section>
+<footer>
+  <p>built by <span style="color: var(--accent)">lots_haus</span> · 2026 · made with ☕ and solder</p>
+</footer>
 
-    <section id="contact">
-        <div class="comment-title">// contact</div>
-        <h2 class="section-title">Get in touch</h2>
-        <div class="contact-list">
-            <div class="contact-item">
-                <span class="contact-icon">🐙</span>
-                <div>
-                    <strong style="color:#fff;">GitHub</strong><br>
-                    <a href="https://github.com/Lotshaus" target="_blank" style="color: var(--accent); text-decoration: none;">@Lotshaus</a>
-                </div>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">📍</span>
-                <div>
-                    <strong style="color:#fff;">Location</strong><br>
-                    <span style="color: var(--text-muted);">Czech Republic</span>
-                </div>
-            </div>
-            <div class="contact-item">
-                <span class="contact-icon">🔨</span>
-                <div>
-                    <strong style="color:#fff;">Status</strong><br>
-                    <span style="color: var(--text-muted);">Building stuff</span>
-                </div>
-            </div>
-        </div>
-    </section>
+<script>
+  // Theme toggle
+  const btn = document.getElementById('themeBtn');
+  const html = document.documentElement;
+  btn.addEventListener('click', () => {
+    const isDark = html.dataset.theme === 'dark';
+    html.dataset.theme = isDark ? 'light' : 'dark';
+    btn.textContent = isDark ? '🌙' : '☀️';
+  });
 
-    <footer>
-        <p>built by lots_haus · 2026 · made with ☕ and solder</p>
-    </footer>
+  // Cursor glow
+  const glow = document.getElementById('glow');
+  document.addEventListener('mousemove', e => {
+    glow.style.left = e.clientX + 'px';
+    glow.style.top = e.clientY + 'px';
+  });
 
+  // 3D Print form
+  function submitForm() {
+    const name = document.getElementById('f-name').value.trim();
+    const email = document.getElementById('f-email').value.trim();
+    const desc = document.getElementById('f-desc').value.trim();
+    if (!name || !email || !desc) {
+      alert('Please fill in name, email and description!');
+      return;
+    }
+    // Build mailto link
+    const material = document.getElementById('f-material').value;
+    const color = document.getElementById('f-color').value;
+    const file = document.getElementById('f-file').value;
+    const subject = encodeURIComponent(`3D Print Request from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nMaterial: ${material}\nColor: ${color}\n\nDescription:\n${desc}\n\nFile link: ${file || 'none'}`
+    );
+    // Replace with your actual email!
+    window.location.href = `mailto:Lotshaus@proton.me?subject=${subject}&body=${body}`;
+    document.getElementById('formContent').style.display = 'none';
+    document.getElementById('successMsg').style.display = 'block';
+  }
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 100);
+      }
+    });
+  }, { threshold: 0.1 });
+  reveals.forEach(el => observer.observe(el));
+</script>
 </body>
 </html>
